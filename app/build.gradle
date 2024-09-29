@@ -1,0 +1,70 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "skimp.store.lib.project"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    if (KEYSTORE_PATH?.trim()) {
+        signingConfigs {
+            releaseWithSignedKey {
+                storeFile file(KEYSTORE_PATH)
+                storePassword KEYSTORE_PW
+                keyAlias KEYSTORE_ALIAS
+                keyPassword KEYSTORE_ALIAS_PW
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (KEYSTORE_PATH?.trim()) {
+                signingConfig signingConfigs.releaseWithSignedKey
+            }
+        }
+
+        debug {
+            if (KEYSTORE_PATH?.trim()) {
+                signingConfig signingConfigs.releaseWithSignedKey
+            }
+        }
+    }
+    // 빌드를 위해 라이브러리 프로젝트(SKIMP_StoreLibrary)와 맞춤.
+    flavorDimensions "server"
+    productFlavors {
+        dev {
+        }
+        real {
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation project(':SKIMP_StoreLibrary')
+
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}

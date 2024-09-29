@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">LibProject</string>
+    <string name="go_member_store_sample">정직원 라이브러리 적용 샘플 화면이동\n(MemberStoreLibSampleActivity)</string>
+    <string name="go_partner_store_sample">협력직원 라이브러리 적용 샘플 화면이동\n(PartnerStoreLibSampleActivity)</string>
+    <string name="go_member_store_api_sample">정직원 라이브러리 API 샘플 화면이동\n(MemberStoreAPIActivity)</string>
+    <string name="go_partner_store_api_sample">협력직원 라이브러리 API 샘플 화면이동\n(PartnerStoreAPIActivity)</string>
+
+    <string name="title_member_store_sample">정직원 라이브러리 적용 샘플 화면</string>
+    <string name="title_partner_store_sample">협력직원 라이브러리 적용 샘플 화면</string>
+    <string name="title_member_store_api_sample">정직원 라이브러리 API 샘플 화면</string>
+    <string name="title_partner_store_api_sample">협력직원 라이브러리 API 샘플 화면</string>
+
+    <string name="store_lib_auth">인증</string>
+    <string name="store_lib_login">로그인</string>
+    <string name="store_lib_update">앱 업데이트</string>
+    <string name="store_lib_go_store_install_page">스토어앱 설치페이지 이동</string>
+    <string name="store_lib_login_user_info">스토어 로그인 사용자 정보 가져오기</string>
+
+</resources>

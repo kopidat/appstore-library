@@ -1,0 +1,86 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        archivesBaseName = "SKIMP_StoreLibrary"
+        version = android.defaultConfig.versionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    //
+    flavorDimensions "server"
+    productFlavors {
+        // 개발서버
+        // dev-gw-skimp.skinnovation.com == 20.194.22.188 // IP 동일
+        dev {
+            dimension "server"
+            resValue("string", "server_url", "https://dev-gw-skimp.skinnovation.com/")
+            resValue("string", "member_store_download_page_url", "https://dev-gw-skimp.skinnovation.com/down/member.jsp")
+            resValue("string", "partner_store_download_page_url", "https://dev-gw-skimp.skinnovation.com/down/partner.jsp")
+        }
+        // 운영서버
+        // gw-skimp.skinnovation.com == 52.141.23.61 //  IP 동일
+        real {
+            dimension "server"
+            resValue("string", "server_url", "https://gw-skimp.skinnovation.com/")
+            resValue("string", "member_store_download_page_url", "https://gw-skimp.skinnovation.com/down/member.jsp")
+            resValue("string", "partner_store_download_page_url", "https://gw-skimp.skinnovation.com/down/partner.jsp")
+        }
+
+        // .aar 파일명 변경(끝에 버전 추가)
+        // ex) 운영 : SKIMP_StoreLibrary-real-release-v1.0.0.aar
+        // ex) 개발 : SKIMP_StoreLibrary-dev-release-v1.0.0.aar
+        libraryVariants.all { variant ->
+            variant.outputs.all { output ->
+                if (outputFile != null && outputFileName.endsWith('.aar')) {
+                    def date = new Date();
+                    def formattedDate = date.format('yyyyMMdd-HHmmss')
+                    def pureFileName = outputFileName.replace(".aar", "")
+                    outputFileName = "${pureFileName}-v${version}_${formattedDate}.aar"
+                }
+            }
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.3.0'
+
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // MDM(SSM) 라이브러리
+    implementation files('libs/ssmLib-2.0.15.jar')
+
+    // Retrofit 라이브러리
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // Gson 변환기 라이브러리
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="skimp.store.lib">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- 정직원용 개별앱에 인증정보를 제공할 컨텐트 프로바아더, 읽기권한 -->
+    <uses-permission android:name="skimp.member.store.permission.READ_AUTH"/>
+
+    <!-- 협력직원용 개별앱에 인증정보를 제공할 컨텐트 프로바아더, 읽기권한 -->
+    <uses-permission android:name="skimp.partner.store.permission.READ_AUTH"/>
+
+    <!-- 앱 설치여부 확인을 위한 설정. 그래야 getLaunchIntentForPackage 등 API null 안떨어짐. -->
+    <!-- 안드로이드 11(API 30) 이상을 타겟 하면 QUERY_ALL_PACKAGES or <queries> 넣어야 함. -->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
+    <!--    <queries>-->
+    <!--        <package android:name="skimp.member.store" />-->
+    <!--        <package android:name="skimp.partner.store" />-->
+    <!--    </queries>-->
+</manifest>
